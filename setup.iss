@@ -7,7 +7,7 @@
 AppId={{E13315EA-3A3B-439C-BA8F-F86D13C46CD4}
 AppName=MHD Films
 AppVersion=1.0.0
-;AppVerName=MHD Films 1.0.0
+AppVerName=MHD Films 1.0.0
 AppPublisher=Djeddi - Yacine
 AppPublisherURL=https://github.com/dj-yacine-flutter/
 AppSupportURL=https://github.com/dj-yacine-flutter/
@@ -19,7 +19,7 @@ LicenseFile=C:\Users\yacine\Desktop\code\mhd_films\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputBaseFilename=MHD-Films-Setup
-SetupIconFile=C:\Users\yacine\Desktop\mhd_films\icons\film-reel.ico
+SetupIconFile=C:\Users\yacine\Desktop\code\mhd_films\icons\film-reel.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
