@@ -15,7 +15,7 @@ AppUpdatesURL=https://github.com/dj-yacine-flutter/
 DefaultDirName={autopf}\MHD Films
 ChangesAssociations=yes
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\yacine\Desktop\mhd_films\LICENSE
+LicenseFile=C:\Users\yacine\Desktop\code\mhd_films\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputBaseFilename=MHD-Films-Setup
