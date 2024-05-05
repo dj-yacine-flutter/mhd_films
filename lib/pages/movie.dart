@@ -278,6 +278,7 @@ class _MovieSearchState extends State<MovieSearch> {
                                   );
                                 }
                                 if (state is VideoError) {
+                                  Navigator.of(context).pop();
                                   error();
                                 }
                               },

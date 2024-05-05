@@ -102,6 +102,7 @@ class _AnimeEpisodesPageState extends State<AnimeEpisodesPage> {
                 );
               }
               if (state is VideoError) {
+                Navigator.of(context).pop();
                 error();
               }
             },
