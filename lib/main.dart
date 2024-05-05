@@ -3,25 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:mhd_films/pages/home.dart';
 import 'package:media_kit/media_kit.dart' show MediaKit;
 import 'package:mhd_films/utils/shortcuts.dart';
-import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
-  await windowManager.ensureInitialized();
-  WindowOptions windowOptions = const WindowOptions(
-    size: Size(800, 600),
-    minimumSize: Size(800, 600),
-    center: true,
-    backgroundColor: Colors.transparent,
-    skipTaskbar: false,
-    fullScreen: false,
-    titleBarStyle: TitleBarStyle.normal,
-  );
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-  });
   runApp(
     MaterialApp(
       title: 'MHD Films',
