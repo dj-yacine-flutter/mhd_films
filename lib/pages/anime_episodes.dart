@@ -96,6 +96,7 @@ class _AnimeEpisodesPageState extends State<AnimeEpisodesPage> {
                       video: state.link,
                       referer: state.referer,
                       title: title,
+                      color: Colors.blue,
                     ),
                   ),
                 );

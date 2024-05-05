@@ -272,6 +272,7 @@ class _MovieSearchState extends State<MovieSearch> {
                                         video: state.link,
                                         referer: state.referer,
                                         title: title,
+                                        color: Colors.red,
                                       ),
                                     ),
                                   );
