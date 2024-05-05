@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhd_films/core/anime/search/anime_search_bloc.dart';
 import 'package:mhd_films/pages/anime_episodes.dart';
 import 'package:mhd_films/widgets/routly.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../widgets/anime_poster.dart';
 
@@ -24,6 +25,12 @@ class _AnimeSearchState extends State<AnimeSearch> {
   bool isX = false;
   double? h = 0;
   double? w = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    windowManager.setTitle("Animes");
+  }
 
   @override
   void dispose() {

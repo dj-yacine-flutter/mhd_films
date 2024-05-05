@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mhd_films/core/anime/extractor/anime_extractor_cubit.dart';
 import 'package:mhd_films/pages/video_player.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../core/video/video_cubit.dart';
 import '../widgets/routly.dart';
@@ -26,6 +27,7 @@ class _AnimeEpisodesPageState extends State<AnimeEpisodesPage> {
   void initState() {
     super.initState();
     _extractorCubit.extract(widget.href);
+    windowManager.setTitle(widget.title);
   }
 
   @override
@@ -122,7 +124,7 @@ class _AnimeEpisodesPageState extends State<AnimeEpisodesPage> {
                         final v = state.episodes[index];
                         return InkWell(
                           onTap: () {
-                            title = v.number;
+                            title = "${widget.title} ${v.number}";
                             _videoCubit.extract(v.iframes);
                           },
                           child: Card(

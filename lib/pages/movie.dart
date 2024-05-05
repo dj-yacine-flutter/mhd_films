@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mhd_films/core/movie/extractor/movie_extractor_cubit.dart';
 import 'package:mhd_films/core/video/video_cubit.dart';
 import 'package:mhd_films/pages/video_player.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../core/movie/search/movie_search_bloc.dart';
 import '../widgets/movie_poster.dart';
@@ -29,6 +30,12 @@ class _MovieSearchState extends State<MovieSearch> {
   bool isX = false;
   double? h = 0;
   double? w = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    windowManager.setTitle("Movies");
+  }
 
   @override
   void dispose() {
