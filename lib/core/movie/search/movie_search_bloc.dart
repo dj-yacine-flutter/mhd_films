@@ -3,18 +3,17 @@ import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 
-import '../../models/movie.dart';
+import '../../../models/movie.dart';
 
-part 'search_event.dart';
-part 'search_state.dart';
+part 'movie_search_event.dart';
+part 'movie_search_state.dart';
 
-class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc() : super(SearchEmpty()) {
-    on<Clean>((event, emit) {
-      emit(SearchEmpty());
-    });
-    on<Search>((event, emit) async {
-      emit(SearchLoading());
+class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
+  MovieSearchBloc() : super(MovieSearchEmpty()) {
+    on<MovieSimpleQuery>((event, emit) async {
+      emit(
+        MovieSearchLoading(),
+      );
       try {
         final headers = {
           'User-Agent':
@@ -30,9 +29,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
         final res = await http.post(url, headers: headers);
         final status = res.statusCode;
-        if (status < 200  && status > 400) {
+        if (status < 200 && status > 304) {
           throw Exception('http.post error: statusCode= $status');
         }
+
         List<Movie> movies = [];
 
         final doc = parser.parse(res.body);
@@ -66,14 +66,25 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           movies.add(Movie(title: title, img: img, href: href, version: ver));
         }
         if (movies.isEmpty) {
-          emit(SearchError());
-        }else {
-          emit(SearchLoaded(movies: movies));
+          emit(
+            MovieSearchError(),
+          );
+        } else {
+          emit(
+            MovieSearchLoaded(movies: movies),
+          );
         }
       } catch (e) {
         print(e);
-        emit(SearchError());
+        emit(
+          MovieSearchError(),
+        );
       }
+    });
+    on<MovieCleanQuery>((event, emit) async {
+      emit(
+        MovieSearchEmpty(),
+      );
     });
   }
 }

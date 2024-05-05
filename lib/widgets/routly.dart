@@ -6,8 +6,8 @@ class Routly extends PageRouteBuilder {
   Routly({required this.route})
       : super(
     pageBuilder: (context, animation, secondaryAnimation) => route,
-    transitionDuration: const Duration(milliseconds: 450),
-    reverseTransitionDuration: const Duration(milliseconds: 450),
+    transitionDuration: const Duration(milliseconds: 300),
+    reverseTransitionDuration: const Duration(milliseconds: 350),
     maintainState: false,
     opaque: false,
   );

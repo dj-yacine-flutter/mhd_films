@@ -1,16 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 
-part 'iframe_state.dart';
+part 'movie_extractor_state.dart';
 
-class IframeCubit extends Cubit<IframeState> {
-  IframeCubit() : super(IframeLoading());
+class MovieExtractorCubit extends Cubit<MovieExtractorState> {
+  MovieExtractorCubit() : super(MovieExtractorLoading());
 
-  Future<void> start(String href) async {
-    emit(IframeLoading());
+  Future<void> extract(String href) async {
     try {
+      emit(MovieExtractorLoading());
       final headers = {
         'User-Agent':
             'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
@@ -35,8 +36,7 @@ class IframeCubit extends Cubit<IframeState> {
       final doc = parser.parse(res.body);
       final list = doc.querySelector(".player-list");
       if (list == null) {
-        emit(IframeError());
-        return;
+        throw Exception('document is null');
       }
 
       final elements = list.getElementsByClassName("lien");
@@ -51,10 +51,14 @@ class IframeCubit extends Cubit<IframeState> {
         });
       }
 
-      emit(IframeLoaded(iframes: iframes));
+      if (iframes.isEmpty) {
+        throw Exception('no data found');
+      }
+
+      emit(MovieExtractorLoaded(iframes: iframes));
     } catch (e) {
       print(e);
-      emit(IframeError());
+      emit(MovieExtractorError());
     }
   }
 }

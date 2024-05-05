@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mhd_films/pages/search.dart';
+import 'package:mhd_films/pages/home.dart';
 import 'package:media_kit/media_kit.dart' show MediaKit;
-import 'package:mhd_films/utils/shortcuts.dart'; // Provides [Player], [Media], [Playlist] etc.
+import 'package:mhd_films/utils/shortcuts.dart';
+import 'package:window_manager/window_manager.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
+  await windowManager.ensureInitialized();
+  WindowOptions windowOptions = const WindowOptions(
+    size: Size(800, 600),
+    minimumSize: Size(800, 600),
+    center: true,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: false,
+    fullScreen: false,
+    titleBarStyle: TitleBarStyle.normal,
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
   runApp(
     MaterialApp(
       title: 'MHD Films',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
+          seedColor: Colors.grey,
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
@@ -20,7 +35,7 @@ void main() {
       ),
       home: Shortcuts(shortcuts: <LogicalKeySet, Intent>{
         LogicalKeySet(LogicalKeyboardKey.escape): const BackIntent(),
-      }, child: const SearchPage()),
+      }, child: const HomePage()),
     ),
   );
 }
