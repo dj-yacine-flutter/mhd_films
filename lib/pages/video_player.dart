@@ -27,9 +27,15 @@ class _VideoPlayerState extends State<VideoPlayer> {
   @override
   void initState() {
     super.initState();
-    player.open(Media(widget.video, httpHeaders: {
-      "referer": widget.referer,
-    }));
+    player.open(Media(
+      widget.video,
+      httpHeaders: {
+        "referer": widget.referer,
+      },
+      extras: {
+        "Title": widget.title,
+      },
+    ));
   }
 
   @override
@@ -55,9 +61,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
           centerTitle: true,
         ),
         body: Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+          child: Flexible(
             child: Video(
               controller: controller,
               wakelock: false,
