@@ -253,6 +253,7 @@ class _MovieSearchState extends State<MovieSearch> {
                                 _videoCubit.extract(state.iframes);
                               }
                               if (state is MovieExtractorError) {
+                                Navigator.of(context).pop();
                                 error();
                               }
                             },
