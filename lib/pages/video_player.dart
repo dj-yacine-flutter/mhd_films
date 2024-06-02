@@ -53,16 +53,14 @@ class _VideoPlayerState extends State<VideoPlayer> {
   }
 
   void _toggleFull() async {
-    setState(() {
-      isFull = !isFull;
-    });
+    isFull = !isFull;
     await windowManager.setFullScreen(isFull);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return // Wrap [Video] widget with [MaterialVideoControlsTheme].
-        GestureDetector(
+    return GestureDetector(
       onDoubleTap: _toggleFull,
       child: MaterialDesktopVideoControlsTheme(
         normal: MaterialDesktopVideoControlsThemeData(

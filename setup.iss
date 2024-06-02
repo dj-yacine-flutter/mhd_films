@@ -6,8 +6,8 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{E13315EA-3A3B-439C-BA8F-F86D13C46CD4}
 AppName=MHD Films
-AppVersion=1.0.0+8
-AppVerName=MHD Films v1.0.0+8
+AppVersion=1.0.0+9
+AppVerName=MHD Films v1.0.0+9
 AppPublisher=Djeddi - Yacine
 AppPublisherURL=https://github.com/dj-yacine-flutter/
 AppSupportURL=https://github.com/dj-yacine-flutter/
