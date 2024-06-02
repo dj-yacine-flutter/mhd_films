@@ -9,10 +9,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
   await windowManager.ensureInitialized();
+  const title = "MHD Films" ;
   WindowOptions windowOptions = const WindowOptions(
     size: Size(800, 600),
     center: false,
-    title: 'MHD Films',
+    title: title,
     minimumSize: Size(500, 500),
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
@@ -24,7 +25,7 @@ void main() async {
   });
   runApp(
     MaterialApp(
-      title: 'MHD Films',
+      title: title,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.grey.shade900,
