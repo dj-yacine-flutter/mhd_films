@@ -78,80 +78,97 @@ class _AnimeEpisodesPageState extends State<AnimeEpisodesPage> {
     return BlocProvider(
       create: (context) => _extractorCubit,
       child: Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: Center(
-          child: BlocListener(
-            bloc: _videoCubit,
-            listener: (context, state) {
-              if (state is VideoLoading) {
-                load();
-              }
-              if (state is VideoLoaded) {
-                Navigator.of(context).pop();
-                debugPrint(state.link);
-                Navigator.push(
-                  context,
-                  Routly(
-                    route: VideoPlayer(
-                      video: state.link,
-                      referer: state.referer,
-                      title: title,
-                      color: Colors.blue,
-                    ),
+        body: BlocListener(
+          bloc: _videoCubit,
+          listener: (context, state) {
+            if (state is VideoLoading) {
+              load();
+            }
+            if (state is VideoLoaded) {
+              Navigator.of(context).pop();
+              debugPrint(state.link);
+              Navigator.push(
+                context,
+                Routly(
+                  route: VideoPlayer(
+                    video: state.link,
+                    referer: state.referer,
+                    title: title,
+                    color: Colors.blue,
                   ),
-                );
-              }
-              if (state is VideoError) {
-                Navigator.of(context).pop();
-                error();
-              }
-            },
+                ),
+              );
+            }
+            if (state is VideoError) {
+              Navigator.of(context).pop();
+              error();
+            }
+          },
+          child: Center(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              child: BlocBuilder(
-                bloc: _extractorCubit,
-                builder: (context, state) {
-                  if (state is AnimeExtractorLoading) {
-                    return const CircularProgressIndicator();
-                  } else if (state is AnimeExtractorLoaded) {
-                    return Wrap(
-                      spacing: 5,
-                      runSpacing: 5,
-                      children:
-                          List<Widget>.generate(state.episodes.length, (index) {
-                        final v = state.episodes[index];
-                        return InkWell(
-                          onTap: () {
-                            title = "${widget.title} ${v.number}";
-                            _videoCubit.extract(v.iframes);
-                          },
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                v.number,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: BlocBuilder(
+                    bloc: _extractorCubit,
+                    builder: (context, state) {
+                      if (state is AnimeExtractorLoading) {
+                        return const CircularProgressIndicator();
+                      } else if (state is AnimeExtractorLoaded) {
+                        return Wrap(
+                          spacing: 10,
+                          runSpacing: 10,
+                          children: List<Widget>.generate(state.episodes.length,
+                              (index) {
+                            final v = state.episodes[index];
+                            return MaterialButton(
+                              color: Colors.white,
+                              highlightColor: Colors.black38,
+                              hoverColor: Colors.black38,
+                              focusColor: Colors.black38,
+                              splashColor: Colors.black38,
+                              padding: const EdgeInsets.all(25.0),
+                              shape: const ContinuousRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                              ),
+                              onPressed: () {
+                                title = "${widget.title} ${v.number}";
+                                _videoCubit.extract(v.iframes);
+                              },
+                              child: SizedBox(
+                                width: 180,
+                                child: Center(
+                                  child: Text(
+                                    v.number,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            );
+                          }),
+                        );
+                      } else {
+                        return const Text(
+                          "No Data Found !!",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
                           ),
                         );
-                      }),
-                    );
-                  } else {
-                    return const Text(
-                      "No Data Found !!",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    );
-                  }
-                },
+                      }
+                    },
+                  ),
+                ),
               ),
             ),
           ),
